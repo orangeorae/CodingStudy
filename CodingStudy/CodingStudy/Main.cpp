@@ -1,63 +1,121 @@
 ﻿#include <iostream>
+#include<string>
 using namespace std;
+
+class DragonMaster {
+public:
+    string m_dmName;
+    int m_hp;
+
+    DragonMaster(string name, int hp) {
+        m_dmName = name;
+        m_hp = hp;
+        cout << m_dmName << "가 소환되었습니다." << endl;
+    }
+
+    void Bress() {
+        cout << m_dmName << "의 드래곤이 브레스를 내뿜어서 데미지를 입혔다." << endl;
+    }
+    void TakeDamage(int damage) {
+        m_hp = m_hp - damage;
+        cout << m_dmName << "가 " << damage << "의 피해를 입었다." << endl;
+    }
+    ~DragonMaster() {
+    }
+
+};
+
+class JaguarHunter {
+public:
+    string m_jhName;
+    int m_hp;
+
+    JaguarHunter(string name, int hp) {
+        m_jhName = name;
+        m_hp = hp;
+        cout << m_jhName << "가 소환되었습니다." << endl;
+    }
+
+    void Bite() {
+        cout << m_jhName << "의  재규어가 물어서 데미지를 입혔다." << endl;
+    }
+    void TakeDamage(int damage) {
+        m_hp = m_hp - damage;
+        cout << m_jhName << "가 " << damage << "의 피해를 입었다." << endl;
+    }
+    ~JaguarHunter() {
+    }
+
+};
+
+class WildPigHunter {
+public:
+    string m_phName;
+    int m_hp;
+    WildPigHunter(string name, int hp) {
+        m_phName = name;
+        m_hp = hp;
+        cout << m_phName << "가 소환되었습니다." << endl;
+    }
+
+    void HeadButt() {
+        cout << m_phName << "의  멧돼지가  박치기를 해서 데미지를 입혔다." << endl;
+    }
+    void TakeDamage(int damage) {
+        m_hp = m_hp - damage;
+        cout << m_phName << "가 " << damage << "의 피해를 입었다." << endl;
+    }
+    ~WildPigHunter() {
+    }
+};
 
 int main()
 {
-    int array[7][7] = { 0 };
-    int itemCount = 0;
-    int monsterCount = 0;
-    srand(time(0));
-
-    for (int i = 0; i < 7; i++) {
-
-        for (int j = 0; j < 7; j++) {
-
-            int item = rand() % 3; //0~2
-
-            if (item == 1) {
-
-                if (itemCount < 3) { // 아이템 최대 수 조절 
-                    array[i][j] = 1;
-                    itemCount++;
-                }
-                else {
-                    array[i][j] = 0;
-                }
-            }
-            else if (item == 2) {
-                if (monsterCount < 5) { // 몬스터 최대 수 조절
-                    array[i][j] = 2;
-                    monsterCount++;
-                }
-                else {
-                    array[i][j] = 0;
-                }
-            }
-        }
-    }
-    cout << "보물 찾기 게임 시작" << endl;
+    string  call;
+    DragonMaster Dragon("드래곤마스터", 100); // 소환
+    JaguarHunter Jaguar("재규어헌터", 100); // 소환 
+    WildPigHunter WildPig("멧돼지헌터", 100); // 소환 
+    cout << "***3명의 헌터가 소환 되었습니다.*** " << endl;
     while (1) {
-        int x = 0, y = 0;
-        cout << "X, Y 좌표를 입력하세요: ";
-        cin >> x >> y;
-
-        if (x < 0 || x > 6 || y < 0 || y >6) {
-            cout << "0~ 6 까지의 숫자를 적어주세요" << endl;
-            continue;
+        cout << "***누구를 선택해 공격시키겠습니까? (드래곤마스터/ 재규어헌터/ 멧돼지헌터)***" << endl;
+        cout << "입력: ";
+        cin >> call;
+        if (call == "드래곤마스터") {
+            Dragon.Bress();
+            Jaguar.TakeDamage(30);
+            WildPig.TakeDamage(30);
+        }
+        else if (call == "재규어헌터") {
+            Jaguar.Bite();
+            Dragon.TakeDamage(30);
+            WildPig.TakeDamage(30);
+        }
+        else if (call == "멧돼지헌터") {
+            WildPig.HeadButt();
+            Dragon.TakeDamage(30);
+            Jaguar.TakeDamage(30);
+        }
+        if (Dragon.m_hp <= 0) {
+            cout << Dragon.m_dmName << "가 죽었습니다." << endl;
+        }
+        if (Jaguar.m_hp <= 0) {
+            cout << Jaguar.m_jhName << "가 죽었습니다." << endl;
+        }
+        if (WildPig.m_hp <= 0) {
+            cout << WildPig.m_phName << "가 죽었습니다." << endl;
         }
 
-        if (array[x][y] == 2) {
-            cout << "몬스터 발견 게임오버" << endl;
+        if ((Dragon.m_hp <= 0 && Jaguar.m_hp <= 0)) {
+            cout << "-----승자는 멧돼지헌터-----" << endl;
             break;
         }
-
-        if (array[x][y] == 1) {
-            cout << "아이템 발견 성공! ";
+        else if (Dragon.m_hp <= 0 && WildPig.m_hp <= 0) {
+            cout << "-----승자는  재규어헌터-----" << endl;
             break;
         }
-        else if (array[x][y] == 0) {
-            cout << "빈칸입니다. 다시 입력해주세요" << endl;
-            continue;
+        else if (Jaguar.m_hp <= 0 && WildPig.m_hp <= 0) {
+            cout << "-----승자는  드래곤헌터-----" << endl;
+            break;
         }
     }
 }
