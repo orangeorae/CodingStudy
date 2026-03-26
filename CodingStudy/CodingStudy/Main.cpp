@@ -1,37 +1,78 @@
 ﻿#include <iostream>
+using namespace std;
 
-std::string customer(std::string name) {
+string AIRandom;
 
-    return name;
+void Scissors() {
+    if (AIRandom == "보") {
+        cout << "가위바위보 대결에서 이겼습니다." << endl;
+    }
+    else if (AIRandom == "가위") {
+        cout << "가위바위보 대결에서 비겼습니다." << endl;
+    }
+    else if (AIRandom == "바위") {
+        cout << "가위바위보 대결에서 졌습니다." << endl;
+    }
 }
 
-void guide() {
-
-    std::cout << "님이 자기 포인트가 얼마 적립되어 있는지 알려달라고 한다." << std::endl;
+void Rock() {
+    if (AIRandom == "가위") {
+        cout << "가위바위보 대결에서 이겼습니다." << endl;
+    }
+    else if (AIRandom == "바위") {
+        cout << "가위바위보 대결에서 비겼습니다." << endl;
+    }
+    else if (AIRandom == "보") {
+        cout << "가위바위보 대결에서 졌습니다." << endl;
+    }
 }
 
-int check(int bananamilk, int egg) {
-
-    int total = bananamilk + egg;
-
-    return total;
-
+void Paper() {
+    if (AIRandom == "바위") {
+        cout << "가위바위보 대결에서 이겼습니다." << endl;
+    }
+    else if (AIRandom == "보") {
+        cout << "가위바위보 대결에서 비겼습니다." << endl;
+    }
+    else if (AIRandom == "가위") {
+        cout << "가위바위보 대결에서 졌습니다." << endl;
+    }
 }
+int main() {
 
-void pointcard(int number) {
+    srand(time(NULL));
+    int random = rand() % 3 + 1;
+    string myValue;
 
-    std::cout << "님의 현재 적립된 포인트는 " << number << "포인트 이다." << std::endl;
-}
+    cout << "*****가위, 바위, 보 중에 입력해주세요.*****" << endl;
+    cout << "입력: ";
+    cin >> myValue;
 
-int main()
-{
-    std::cout << "손님의 이름은 " << customer("피쿵츄") << "이다." << std::endl;
-    std::cout << customer("피쿵츄") << "님이 계산해달라고 한다." << std::endl;
-    std::cout << "총액은: " << check(1200, 5980) << "이다." << std::endl;
-    std::cout << customer("피쿵츄");
-    guide();
-    std::cout << customer("피쿵츄");
-    pointcard(7777);
+    switch (random) {
+    case 1:
+        AIRandom = "가위";
+        break;
+    case 2:
+        AIRandom = "바위";
+        break;
+    case 3:
+        AIRandom = "보";
+        break;
+    }
 
-    return 0;
+    if (myValue == "가위") {
+        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
+        Scissors();
+    }
+    else if (myValue == "바위") {
+        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
+        Rock();
+    }
+    else if (myValue == "보") {
+        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
+        Paper();
+    }
+    else {
+        cout << "가위, 바위, 보 중에 적어주세요." << endl;
+    }
 }
