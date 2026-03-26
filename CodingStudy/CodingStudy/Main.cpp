@@ -1,78 +1,51 @@
 ﻿#include <iostream>
 using namespace std;
 
-string AIRandom;
+int main()
+{
+    int array[7][7] = { { 0,1,0,2,0,0,0 },
+                        { 0,0,0,0,0,0,0 },
+                        { 0,2,0,1,0,0,0 },
+                        { 0,0,0,0,0,2,0 },
+                        { 0,2,0,0,0,0,0 },
+                        { 0,0,0,1,0,2,0 },
+                        { 0,0,0,0,0,0,0 } };
 
-void Scissors() {
-    if (AIRandom == "보") {
-        cout << "가위바위보 대결에서 이겼습니다." << endl;
-    }
-    else if (AIRandom == "가위") {
-        cout << "가위바위보 대결에서 비겼습니다." << endl;
-    }
-    else if (AIRandom == "바위") {
-        cout << "가위바위보 대결에서 졌습니다." << endl;
-    }
-}
+    cout << "보물 찾기 게임 시작" << endl;
 
-void Rock() {
-    if (AIRandom == "가위") {
-        cout << "가위바위보 대결에서 이겼습니다." << endl;
-    }
-    else if (AIRandom == "바위") {
-        cout << "가위바위보 대결에서 비겼습니다." << endl;
-    }
-    else if (AIRandom == "보") {
-        cout << "가위바위보 대결에서 졌습니다." << endl;
-    }
-}
+    int itemCount = 3;
 
-void Paper() {
-    if (AIRandom == "바위") {
-        cout << "가위바위보 대결에서 이겼습니다." << endl;
-    }
-    else if (AIRandom == "보") {
-        cout << "가위바위보 대결에서 비겼습니다." << endl;
-    }
-    else if (AIRandom == "가위") {
-        cout << "가위바위보 대결에서 졌습니다." << endl;
-    }
-}
-int main() {
+    while (1) {
 
-    srand(time(NULL));
-    int random = rand() % 3 + 1;
-    string myValue;
+        int x = 0;  int y = 0;
 
-    cout << "*****가위, 바위, 보 중에 입력해주세요.*****" << endl;
-    cout << "입력: ";
-    cin >> myValue;
+        cout << "X, Y 좌표를 입력하세요: ";
+        cin >> x >> y;
 
-    switch (random) {
-    case 1:
-        AIRandom = "가위";
-        break;
-    case 2:
-        AIRandom = "바위";
-        break;
-    case 3:
-        AIRandom = "보";
-        break;
-    }
+        if (x > 6 || x < 0 || y > 6 || y < 0) {
+            cout << " 0부터 6사이에 수를 입력해주세요" << endl;
+            continue;
+        }
+        else if (array[x][y] == 0) {
+            cout << "빈칸입니다 ! 다시 입력해주세요" << endl;
+            continue;
+        }
 
-    if (myValue == "가위") {
-        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
-        Scissors();
-    }
-    else if (myValue == "바위") {
-        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
-        Rock();
-    }
-    else if (myValue == "보") {
-        cout << "상대는 " << AIRandom << "를 냈습니다." << endl;
-        Paper();
-    }
-    else {
-        cout << "가위, 바위, 보 중에 적어주세요." << endl;
+        else if (array[x][y] == 2) {
+            cout << "몬스터 발견! 죽었습니다." << endl;
+            break;
+        }
+
+        if (array[x][y] == 1) {
+            itemCount--;
+            cout << "아이템  당첨! " << endl;
+
+            cout << "남은 아이템의 수는 " << itemCount << "개 입니다." << endl;;
+
+            if (itemCount == 0) {
+                cout << "아이템을 전부 찾았습니다 성공 !";
+                break;
+            }
+        }
     }
 }
