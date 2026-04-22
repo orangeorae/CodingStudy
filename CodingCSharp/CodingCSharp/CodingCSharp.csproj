@@ -48,6 +48,7 @@
     <Compile Include="_0330.cs" />
     <Compile Include="_0331.cs" />
     <Compile Include="_0401.cs" />
+    <Compile Include="_0402.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
