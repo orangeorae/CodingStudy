@@ -53,6 +53,7 @@
     <Compile Include="_0403_CheckPoint.cs" />
     <Compile Include="_0407.cs" />
     <Compile Include="_0408.cs" />
+    <Compile Include="_0410.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
